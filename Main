@@ -1,0 +1,29 @@
+//main.cpp
+#include "rectangle.h"
+
+#include <QApplication>
+#include <QPropertyAnimation>
+
+int main(int argc, char *argv[])
+{
+    QApplication a(argc, argv);
+
+    QWidget w;
+    w.resize({800,600});
+    w.show();
+
+    //начало движения
+    auto* r=new rectangle(&w);
+    r->resize({50,50});
+    r->show();
+    
+    if(auto* a =new QPropertyAnimation(r, "pos"))
+    {
+        a->setDuration(3000);
+        a->setStartValue(QPoint{0,0});
+        a->setEndValue(QPoint{500,500});
+        a->start(QAbstractAnimation::DeleteWhenStopped);
+    }
+
+    return a.exec();
+}
